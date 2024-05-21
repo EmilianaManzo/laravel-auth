@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('href');
             $table->string('type');
             $table->text('description')->nullable();
+
             $table->timestamps();
 
         });
