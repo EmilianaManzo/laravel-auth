@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-    <h1>admin homepage</h1>
+    <div class="container mt-3 pt-5  d-flex justify-content-center align-items-center">
+        <h1>Homepage Admin</h1>
+    </div>
 @endsection

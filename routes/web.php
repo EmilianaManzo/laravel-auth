@@ -3,6 +3,7 @@
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,14 @@ Route::middleware(['auth', 'verified'])
         ->name('admin.')
         ->group(function(){
             Route::get('/', [DashboardController::class, 'index'])->name('home');
+        });
+
+// rotte crud Project
+Route::middleware(['auth', 'verified'])
+        ->prefix('projects')
+        ->name('projects.')
+        ->group(function(){
+            Route::resource('projects', ProjectsController::class);
         });
 
 // rotte autenticazione (auth)

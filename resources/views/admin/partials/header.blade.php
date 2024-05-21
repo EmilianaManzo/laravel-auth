@@ -10,6 +10,9 @@
               <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="{{route('home')}}" target="_blank">Home Pubblica</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="{{route('projects.projects.index')}}">Progetti</a>
+              </li>
             </ul>
           </div>
           <div>
