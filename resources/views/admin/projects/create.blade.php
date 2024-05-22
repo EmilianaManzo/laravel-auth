@@ -2,7 +2,7 @@
 
 @section('content')
 <section class="h-100 w-100 ">
-    <div class="container pt-2">
+    <div class="container pt-4">
         <h1>Crea un nuovo progetto</h1>
 
        @if ($errors->any())
@@ -15,6 +15,13 @@
            </div>
 
        @endif
+
+       @if(session('error'))
+        <div class="alert alert-danger" role="alert">
+        {{ session('error')}}
+        </div>
+        @endif
+
         <form action="{{route('admin.projects.store')}}" method="post">
             @csrf
             <div class="mb-3">
@@ -64,6 +71,7 @@
                 <textarea cols="30" rows="10" class="form-control" id="description" name="description" value="{{old('description')}}"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Crea</button>
+            <a class="btn btn-primary" href="{{route('admin.projects.index')}}">Torna ai Progetti</a>
         </form>
 
     </div>

@@ -1,7 +1,10 @@
 aside{
-    background-color: hotpink;
+    background-color: violet;
     width: 180px;
-    z-index: 999 !important;
+    position: fixed;
+    left: 0;
+    top: 55px;
+    z-index: 999;
 
     ul{
         list-style: none;
