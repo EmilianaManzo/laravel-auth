@@ -17,6 +17,10 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         @include('admin.partials.header')
-        @yield('content')
+        <main class="d-flex ">
+                @include('admin.partials.aside')
+                @yield('content')
+
+        </main>
     </body>
 </html>

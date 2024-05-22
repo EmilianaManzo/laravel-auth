@@ -27,3 +27,7 @@ Nel pomeriggio, rifate ciò che abbiamo visto insieme stamattina.
 12. Nell’header del layout admin collegare la home della dashboard, la home pubblica, mettere il nome dell’utente loggato e il bottone funzionante logout
 BONUS
 Creazione del modello `Project` con relativa migrazione, seeder, controller e rotte e stampare la index  dei progetti (protetta da middleware)
+
+
+oggi continuate sulla repo di ieri aggiungendo, fra le rotte admin, anche la gestione (CRUD) della tabella “projects”.
+Aggiungete anche due tabelle “technologies” e “types” con le relative CRUD (meglio se su una pagina sola)

@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary h-100 ">
+    <nav class="navbar navbar-expand-lg h-100 ">
         <div class="container-fluid h-100 d-flex justify-content-between ">
 
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
