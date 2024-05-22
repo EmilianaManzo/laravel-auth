@@ -74,21 +74,21 @@ class ProjectController extends Controller
 
         $exist = Project::where('title', $form_data['title'])->first();
 
-        if($exist){
-            return redirect()->route('admin.projects.index')->with('errorexist', 'Progetto già esistente');
-        }else{
+        // if($exist){
+        //     return redirect()->route('admin.projects.index')->with('errorexist', 'Progetto già esistente');
+        // }else{
+
             if($form_data['title'] === $project->title){
             $form_data['slug'] = $project->slug;
             }else{
                 $form_data['slug'] = Helper::createSlug($form_data['title'], Project::class) ;
             }
 
+            $project->update($form_data);
+             return redirect()->route('admin.projects.index',$project);
 
-        }
-        // dd($form_data);
-        $project->update($form_data);
 
-        return redirect()->route('admin.projects.index',$project);
+
     }
 
     /**

@@ -13,6 +13,12 @@
         </div>
         @endif
 
+        @if(session('errorexist'))
+        <div class="alert alert-danger" role="alert">
+        {{ session('errorexist')}}
+        </div>
+        @endif
+
         @if(session('deleted'))
         <div class="alert alert-success" role="alert">
         {{ session('deleted')}}
@@ -33,7 +39,7 @@
             @foreach ($projects as $project )
             <tr>
                 <form action="{{route('admin.projects.update', $project)}}" method="post"
-                class="form-edit-{{$project->id}}">
+                id="form-edit-{{$project->id}}">
                     @csrf
                     @method('PUT')
                 <th scope="row">
@@ -84,8 +90,8 @@
                 <td>
                     <textarea cols="30" rows="10" class="form-control " id="description" name="description" value="">{{$project->description}}</textarea>
                 </td>
-                <td >
-
+            </form>
+                <td>
                         <button
                           type="submit"
                           onclick="submitForm({{$project->id}})"
@@ -93,17 +99,21 @@
                           ><i
                           class="fa-solid fa-pencil"></i></button>
 
-                        <form action="{{route('admin.projects.destroy', $project)}}" method="post">
+                        <form
+                          action="{{route('admin.projects.destroy', $project)}}"
+                          method="post"
+                          onsubmit="return confirm('Sei sicuro di voler eliminare {{$project->title}} ?')">
                             @csrf
                             @method('DELETE')
                             <button
                           type="submit"
-                          class="btn btn-danger my-2 "><i
+                          class="btn btn-danger my-2 "
+                          ><i
                           class="fa-solid fa-trash"></i></button>
                         </form>
 
                 </td>
-            </form>
+
             </tr>
             @endforeach
         </tbody>
@@ -118,7 +128,7 @@
     function submitForm(id){
         const form = document.getElementById(`form-edit-${id}`);
         console.log(form);
-        form.submit();
+        form.submit()
     }
 </script>
 @endsection

@@ -3,6 +3,8 @@
 use App\Http\Controllers\Guest\PageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProjectController;
+use App\Http\Controllers\Admin\TecnologyController;
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +29,9 @@ Route::middleware(['auth', 'verified'])
         ->group(function(){
             Route::get('/', [DashboardController::class, 'index'])->name('home');
             // rotte crud Project
-            Route::resource('projects', ProjectController::class);
+            Route::resource('projects', ProjectController::class)->except('show', 'edit');
+            Route::resource('tecnologies', TecnologyController::class)->except('');
+            Route::resource('types', TypeController::class)->except('');
         });
 
 

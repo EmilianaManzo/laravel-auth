@@ -4,15 +4,15 @@
         <div class="col">
             <ul>
                 <li>
-                    <a href="{{route('admin.projects.index')}}"><i class="fa-regular fa-folder"></i> Gestione progetti</a>
+                    <a href="{{route('admin.projects.index')}}"> Progetti</a>
                 </li>
 
                 <li>
-                    <a href=""><i class="fa-regular fa-folder"></i> Tecnologie</a>
+                    <a href="{{route('admin.tecnologies.index')}}"> Tecnologie</a>
 
                 </li>
                 <li>
-                    <a href=""><i class="fa-regular fa-folder"></i> Tipi</a>
+                    <a href="{{route('admin.types.index')}}"> Tipi</a>
                 </li>
 
             </ul>
