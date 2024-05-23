@@ -18,7 +18,7 @@ class TypesTableSeeder extends Seeder
         for ($i=0; $i < 10 ; $i++){
             $new_type = new Type();
             $new_type->name = $faker->word(5, true);
-            $new_type->slug = Helpy::createSlug($new_type->title, Type::class);
+            $new_type->slug = Helpy::createSlug($new_type->name, Type::class);
             $new_type->save();
         }
     }

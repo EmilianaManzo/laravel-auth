@@ -7,6 +7,17 @@
             <a href="{{route('admin.projects.create')}}" class="btn btn-primary"><i class="fa-solid fa-plus"></i></a>
         </div>
 
+        @if ($errors->any())
+           <div class="alert alert-danger " role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error )
+                        <li>{{$error}}</li>
+                    @endforeach
+                </ul>
+           </div>
+
+       @endif
+
         @if(session('success'))
         <div class="alert alert-success" role="alert">
         {{ session('success')}}
@@ -46,11 +57,11 @@
 
                 <input
                     type="text"
-                    class="form-control  @error('title') is-invalid @enderror"
-                    id="'title"
+                    class="form-control  @error('title',$project->id) is-invalid @enderror"
+                    id="'title-{{$project->id}}"
                     name="title"
                     value="{{$project->title}}">
-                    @error('title')
+                    @error('title',$project->id)
                         <small class="text-danger">
                         {{$message}}
                         </small>

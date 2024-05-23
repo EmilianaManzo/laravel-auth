@@ -15,8 +15,8 @@ class TecnologyController extends Controller
 */
     public function index()
     {
-        $tecns = Tecnology::paginate(10);
-        return view('admin.tecnologies.index', compact('tecns'));
+        $tecnology = Tecnology::orderByDesc('id')->paginate(10);
+        return view('admin.tecnologies.index', compact('tecnology'));
     }
 
     /**
@@ -34,16 +34,16 @@ class TecnologyController extends Controller
     {
         $form_data = $request->all();
 
-        $exist = TecnologyRequest::where('name', $form_data['name'])->first();
+        $exist = Tecnology::where('name', $form_data['name'])->first();
         if($exist){
             return redirect()->route('admin.tecnologies.index')->with('error', 'Tipo già esistente');
         }else{
-            $new_tecn = new TecnologyRequest();
-            $form_data['slug'] = Helper::createSlug($form_data['name'], TecnologyRequest::class);
-            $new_tecn->fill($form_data);
-            $new_tecn->save();
+            $new_tecnology = new Tecnology();
+            $form_data['slug'] = Helper::createSlug($form_data['name'], Tecnology::class);
+            $new_tecnology->fill($form_data);
+            $new_tecnology->save();
 
-            return redirect()->route('admin.tynew_tecnologies.index')->with('success', 'Il Tipo è stato creato');
+            return redirect()->route('admin.tecnologies.index')->with('success', 'Il Tipo è stato creato');
 
         }
     }
@@ -67,28 +67,27 @@ class TecnologyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(TecnologyRequest $request, Tecnology $tecn)
+    public function update(TecnologyRequest $request, Tecnology $tecnology)
     {
         $form_data = $request->all();
 
-
-        if($form_data['name'] === $tecn->name){
-            $form_data['slug'] = $tecn->slug;
+        if($form_data['name'] === $tecnology->name){
+            $form_data['slug'] = $tecnology->slug;
         }else{
-            $form_data['slug'] = Helper::createSlug($form_data['name'], TecnologyRequest::class) ;
+            $form_data['slug'] = Helper::createSlug($form_data['name'], Tecnology::class) ;
         }
-        dd($form_data);
-            $tecn->update($form_data);
-            return redirect()->route('admin.tecnologies.index',$tecn);
+        $tecnology->update($form_data);
+        // dd($tecnology);
+            return redirect()->route('admin.tecnologies.index', $tecnology);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tecnology $tecn)
+    public function destroy(Tecnology $tecnology)
     {
-        $tecn->delete();
+        $tecnology->delete();
 
-        return redirect()->route('admin.tecnologies.index')->with('deleted', 'Il progetto'. ' ' . $tecn->name. ' ' .'è stato cancellato con successo!');
+        return redirect()->route('admin.tecnologies.index')->with('deleted', 'Il progetto'. ' ' . $tecnology->name. ' ' .'è stato cancellato con successo!');
     }
 }

@@ -15,7 +15,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::paginate(10);
+        $types = Type::orderByDesc('id')->paginate(10);
         return view('admin.types.index', compact('types'));
     }
 
@@ -34,16 +34,16 @@ class TypeController extends Controller
     {
         $form_data = $request->all();
 
-        $exist = TypeRequest::where('name', $form_data['name'])->first();
+        $exist = Type::where('name', $form_data['name'])->first();
         if($exist){
             return redirect()->route('admin.types.index')->with('error', 'Tipo già esistente');
         }else{
-            $new_type = new TypeRequest();
-            $form_data['slug'] = Helper::createSlug($form_data['name'], TypeRequest::class);
+            $new_type = new Type();
+            $form_data['slug'] = Helper::createSlug($form_data['name'], Type::class);
             $new_type->fill($form_data);
             $new_type->save();
 
-            return redirect()->route('admin.type.index')->with('success', 'Il Tipo è stato creato');
+            return redirect()->route('admin.types.index')->with('success', 'Il Tipo è stato creato');
 
         }
     }
@@ -72,14 +72,15 @@ class TypeController extends Controller
         $form_data = $request->all();
 
 
-        $exist = TypeRequest::where('name', $form_data['name'])->first();
+        $exist = Type::where('name', $form_data['name'])->first();
         if($form_data['name'] === $type->name){
             $form_data['slug'] = $type->slug;
         }else{
-            $form_data['slug'] = Helper::createSlug($form_data['name'], TypeRequest::class) ;
+            $form_data['slug'] = Helper::createSlug($form_data['name'], Type::class) ;
         }
 
         $type->update($form_data);
+        dd($type);
         return redirect()->route('admin.types.index',$type);
     }
 

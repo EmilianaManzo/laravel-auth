@@ -18,7 +18,7 @@ class TecnologiesTableSeeder extends Seeder
         for ($i=0; $i <10  ; $i++){
             $new_tec = new Tecnology();
             $new_tec->name = $faker->word(5, true);
-            $new_tec->slug = Helpy::createSlug($new_tec->title, Tecnology::class);
+            $new_tec->slug = Helpy::createSlug($new_tec->name, Tecnology::class);
             $new_tec->save();
         }
     }

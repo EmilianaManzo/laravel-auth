@@ -31,3 +31,7 @@ Creazione del modello `Project` con relativa migrazione, seeder, controller e ro
 
 oggi continuate sulla repo di ieri aggiungendo, fra le rotte admin, anche la gestione (CRUD) della tabella “projects”.
 Aggiungete anche due tabelle “technologies” e “types” con le relative CRUD (meglio se su una pagina sola)
+
+FIXME: input che danno errori a tutti della stessa colonna del db anche quando non lo hanno nella pagina project/index , tecnology/index , type/index
+
+FIXME: input che prende errore dalla modifica e riporta il campo a causa dell'old in type e in tecnologies

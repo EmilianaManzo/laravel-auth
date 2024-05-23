@@ -7,6 +7,12 @@
             <div class="col">
                 <div class="card">
 
+                @if(session('error'))
+                <div class="alert alert-danger" role="alert">
+                {{ session('error')}}
+                </div>
+                @endif
+
                 </div>
                 @if(session('success'))
                 <div class="alert alert-success" role="alert">
@@ -30,7 +36,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        @foreach ($tecns as $tecn )
+                        @foreach ($tecnology as $tecn )
                         <tr>
                             <form action="{{route('admin.tecnologies.update', $tecn)}}" method="post"
                             id="form-edit-{{$tecn->id}}">
@@ -83,7 +89,7 @@
                     </tbody>
                 </table>
                 <div class="paginator">
-                    {{$tecns->links()}}
+                    {{$tecnology->links()}}
                 </div>
             </div>
             <div class="col">
@@ -98,11 +104,7 @@
                 </div>
                 @endif
 
-                @if(session('error'))
-                <div class="alert alert-danger" role="alert">
-                {{ session('error')}}
-                </div>
-                @endif
+
 
                 <form
                   action="{{route('admin.tecnologies.store')}}"
