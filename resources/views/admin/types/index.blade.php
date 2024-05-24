@@ -4,45 +4,48 @@
 <section class="h-100 w-100">
     <div class="container pt-4 w-100 ">
         <div class="row">
+            <div class="col col-12 ">
+                @if ($errors->any())
+                <div class="alert alert-danger " role="alert">
+                    <ul>
+                        @foreach ($errors->all() as $error )
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            {{-- questo errore è per la tecnologia già esistente --}}
+            @if(session('error'))
+                <div class="alert alert-danger" role="alert">
+                {{ session('error')}}
+                </div>
+            @endif
+
+            {{-- questo errore è per la creazione fatta con successo --}}
+            @if(session('success'))
+                <div class="alert alert-success" role="alert">
+                {{ session('success')}}
+                </div>
+            @endif
+
+            {{-- questo errore è per la modifica fatta con successo --}}
+            @if(session('update'))
+                <div class="alert alert-success" role="alert">
+                {{ session('update')}}
+                </div>
+            @endif
+
+            {{-- questo errore è per la l'eliminazione fatta con successo --}}
+            @if(session('deleted'))
+                <div class="alert alert-success" role="alert">
+                {{ session('deleted')}}
+                </div>
+            @endif
+            </div>
             <div class="col">
                 <h1>Tipi</h1>
-                    @if ($errors->any())
-                        <div class="alert alert-danger " role="alert">
-                            <ul>
-                                @foreach ($errors->all() as $error )
-                                    <li>{{$error}}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
 
-                    {{-- questo errore è per la tecnologia già esistente --}}
-                    @if(session('error'))
-                        <div class="alert alert-danger" role="alert">
-                        {{ session('error')}}
-                        </div>
-                    @endif
-
-                    {{-- questo errore è per la creazione fatta con successo --}}
-                    @if(session('success'))
-                        <div class="alert alert-success" role="alert">
-                        {{ session('success')}}
-                        </div>
-                    @endif
-
-                    {{-- questo errore è per la modifica fatta con successo --}}
-                    @if(session('update'))
-                        <div class="alert alert-success" role="alert">
-                        {{ session('update')}}
-                        </div>
-                    @endif
-
-                    {{-- questo errore è per la l'eliminazione fatta con successo --}}
-                    @if(session('deleted'))
-                        <div class="alert alert-success" role="alert">
-                        {{ session('deleted')}}
-                        </div>
-                    @endif
 
                 <table class="table  w-100 ">
                     <thead>
@@ -103,15 +106,7 @@
 
             <div class="col">
                 <h1>Nuovo Tipo</h1>
-                @if ($errors->any())
-                <div class="alert alert-danger " role="alert">
-                     <ul>
-                         @foreach ($errors->all() as $error )
-                             <li>{{$error}}</li>
-                         @endforeach
-                     </ul>
-                </div>
-                @endif
+
 
 
                 <form
@@ -122,15 +117,11 @@
                         <label for="name" class="form-label">Tipo</label>
                         <input
                         type="text"
-                        class="form-control @error('name') is-invalid @enderror"
+                        class="form-control"
                         id="name"
                         name="name"
                         value="{{old('name')}}">
-                        @error('name')
-                            <small class="text-danger">
-                                {{$message}}
-                            </small>
-                        @enderror
+
                     </div>
                     <button type="submit" class="btn btn-primary">Crea</button>
 
