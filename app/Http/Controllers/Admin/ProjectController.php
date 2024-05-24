@@ -24,7 +24,12 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $title='Crea un nuovo progetto';
+        $route=route('admin.projects.store');
+        $project=null;
+        $button='Crea progetto';
+        $method= 'POST';
+        return view('admin.projects.create-edit', compact('title','route','project', 'button','method'));
     }
 
     /**
@@ -51,9 +56,9 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Project $project)
     {
-        //
+        return view('admin.projects.show', compact('project'));
     }
 
     /**
@@ -62,6 +67,11 @@ class ProjectController extends Controller
     public function edit( Project $project)
     {
 
+        $title='Modifica progetto';
+        $route=route('admin.projects.update', $project);
+        $button='Aggiorna progetto';
+        $method= 'PUT';
+        return view('admin.projects.create-edit', compact('title','route','project', 'button','method'));
     }
 
     /**
@@ -72,7 +82,7 @@ class ProjectController extends Controller
         $form_data = $request->all();
 
 
-        $exist = Project::where('title', $form_data['title'])->first();
+        // $exist = Project::where('title', $form_data['title'])->first();
 
         // if($exist){
         //     return redirect()->route('admin.projects.index')->with('errorexist', 'Progetto già esistente');
@@ -85,7 +95,7 @@ class ProjectController extends Controller
             }
 
             $project->update($form_data);
-             return redirect()->route('admin.projects.index',$project);
+             return redirect()->route('admin.projects.index',$project)->with('update', 'Il progetto è stato aggiornato');
 
 
 

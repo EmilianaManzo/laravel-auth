@@ -80,8 +80,8 @@ class TypeController extends Controller
         }
 
         $type->update($form_data);
-        dd($type);
-        return redirect()->route('admin.types.index',$type);
+
+        return redirect()->route('admin.types.index',$type)->with('update', 'Il tipo è stato aggiornato con successo');
     }
 
     /**

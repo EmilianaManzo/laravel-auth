@@ -77,8 +77,7 @@ class TecnologyController extends Controller
             $form_data['slug'] = Helper::createSlug($form_data['name'], Tecnology::class) ;
         }
         $tecnology->update($form_data);
-        // dd($tecnology);
-            return redirect()->route('admin.tecnologies.index', $tecnology);
+            return redirect()->route('admin.tecnologies.index', $tecnology)->with('update', 'La tecnologia è stata aggiornata con successo');
     }
 
     /**

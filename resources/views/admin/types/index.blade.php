@@ -5,20 +5,44 @@
     <div class="container pt-4 w-100 ">
         <div class="row">
             <div class="col">
-                <div class="card">
+                <h1>Tipi</h1>
+                    @if ($errors->any())
+                        <div class="alert alert-danger " role="alert">
+                            <ul>
+                                @foreach ($errors->all() as $error )
+                                    <li>{{$error}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 
-                </div>
-                @if(session('success'))
-                <div class="alert alert-success" role="alert">
-                {{ session('success')}}
-                </div>
-                @endif
+                    {{-- questo errore è per la tecnologia già esistente --}}
+                    @if(session('error'))
+                        <div class="alert alert-danger" role="alert">
+                        {{ session('error')}}
+                        </div>
+                    @endif
 
-                @if(session('deleted'))
-                <div class="alert alert-success" role="alert">
-                {{ session('deleted')}}
-                </div>
-                @endif
+                    {{-- questo errore è per la creazione fatta con successo --}}
+                    @if(session('success'))
+                        <div class="alert alert-success" role="alert">
+                        {{ session('success')}}
+                        </div>
+                    @endif
+
+                    {{-- questo errore è per la modifica fatta con successo --}}
+                    @if(session('update'))
+                        <div class="alert alert-success" role="alert">
+                        {{ session('update')}}
+                        </div>
+                    @endif
+
+                    {{-- questo errore è per la l'eliminazione fatta con successo --}}
+                    @if(session('deleted'))
+                        <div class="alert alert-success" role="alert">
+                        {{ session('deleted')}}
+                        </div>
+                    @endif
 
                 <table class="table  w-100 ">
                     <thead>
@@ -32,49 +56,37 @@
                     <tbody>
                         @foreach ($types as $type )
                         <tr>
-                            <form action="{{route('admin.types.update', $type)}}" method="post"
-                            id="form-edit-{{$type->id}}">
-                                @csrf
-                                @method('PUT')
                             <th scope="row">
                                 {{$type->id}}
                             </th>
 
                             <td>
 
-                            <input
-                                type="text"
-                                class="form-control  @error('name') is-invalid @enderror brd-no"
-                                id="name"
-                                name="name"
-                                value="{{$type->name}}">
-                                @error('href')
-                                    <small class="text-danger">
-                                    {{$message}}
-                                    </small>
-                                @enderror
+                                <form action="{{route('admin.types.update', $type)}}" method="post"
+                                id="form-edit-{{$type->id}}">
+                                @csrf
+                                @method('PUT')
+                                        <input
+                                            type="text"
+                                            class="form-control  brd-no"
+
+                                            name="name"
+                                            value="{{$type->name}}">
+                                </form>
                             </td>
-                        </form>
-                            <td>
+                            <td class="d-flex">
                                     <button
                                     type="submit"
                                     onclick="submitForm({{$type->id}})"
-                                    class="btn btn-warning my-2"
+                                    class="btn btn-warning m-2"
                                     ><i
                                     class="fa-solid fa-pencil"></i></button>
 
-                                    <form
-                                    action="{{route('admin.types.destroy', $type)}}"
-                                    method="post"
-                                    onsubmit="return confirm('Sei sicuro di voler eliminare {{$type->name}} ?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button
-                                    type="submit"
-                                    class="btn btn-danger my-2 "
-                                    ><i
-                                    class="fa-solid fa-trash"></i></button>
-                                    </form>
+                                    @include('admin.partials.formdelete',[
+                                        'route'=> route('admin.types.destroy', $type),
+                                        'message' => "Sei sicuro di voler eliminare $type->name ?"
+                                    ])
+
 
                             </td>
 
@@ -82,10 +94,13 @@
                         @endforeach
                     </tbody>
                 </table>
+
                 <div class="paginator">
                     {{$types->links()}}
                 </div>
+
             </div>
+
             <div class="col">
                 <h1>Nuovo Tipo</h1>
                 @if ($errors->any())
@@ -98,11 +113,6 @@
                 </div>
                 @endif
 
-                @if(session('error'))
-                <div class="alert alert-danger" role="alert">
-                {{ session('error')}}
-                </div>
-                @endif
 
                 <form
                   action="{{route('admin.types.store')}}"
